@@ -1,39 +1,27 @@
-import openai
+import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 def answer_academic_question(question):
-    response = openai.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are a helpful academic assistant."},
-            {"role": "user", "content": f"Answer this academic question: {question}"}
-        ]
-    )
-    return response.choices[0].message.content.strip()
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    prompt = f"You are a helpful academic assistant. Answer this academic question: {question}"
+    response = model.generate_content(prompt)
+    return response.text.strip()
 
 def provide_study_tips():
-    response = openai.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are a helpful academic assistant."},
-            {"role": "user", "content": "Give me 3 effective study tips for students."}
-        ]
-    )
-    return response.choices[0].message.content.strip()
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    prompt = "You are a helpful academic assistant. Give me 3 effective study tips for students."
+    response = model.generate_content(prompt)
+    return response.text.strip()
 
 def summarize_text(text):
-    response = openai.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are a helpful academic assistant."},
-            {"role": "user", "content": f"Summarize the following text:\n{text}"}
-        ]
-    )
-    return response.choices[0].message.content.strip()
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    prompt = f"You are a helpful academic assistant. Summarize the following text:\n{text}"
+    response = model.generate_content(prompt)
+    return response.text.strip()
 
 def main():
     print("Welcome to the Smart Student Agent Assistant!")

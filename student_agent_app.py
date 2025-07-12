@@ -1,17 +1,15 @@
 import streamlit as st
-import openai
+import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-def get_openai_response(messages):
-    response = openai.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=messages
-    )
-    return response.choices[0].message.content.strip()
+def get_gemini_response(prompt):
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    response = model.generate_content(prompt)
+    return response.text.strip()
 
 st.title("Student Agent Assistant")
 
@@ -23,28 +21,19 @@ option = st.selectbox(
 if option == "Answer Academic Question":
     question = st.text_input("Enter your academic question:")
     if st.button("Get Answer") and question:
-        messages = [
-            {"role": "system", "content": "You are a helpful academic assistant."},
-            {"role": "user", "content": f"Answer this academic question: {question}"}
-        ]
-        answer = get_openai_response(messages)
+        prompt = f"You are a helpful academic assistant. Answer this academic question: {question}"
+        answer = get_gemini_response(prompt)
         st.success(answer)
 
 elif option == "Get Study Tips":
     if st.button("Show Study Tips"):
-        messages = [
-            {"role": "system", "content": "You are a helpful academic assistant."},
-            {"role": "user", "content": "Give me 3 effective study tips for students."}
-        ]
-        tips = get_openai_response(messages)
+        prompt = "You are a helpful academic assistant. Give me 3 effective study tips for students."
+        tips = get_gemini_response(prompt)
         st.info(tips)
 
 elif option == "Summarize Text":
     text = st.text_area("Enter text to summarize:")
     if st.button("Summarize") and text:
-        messages = [
-            {"role": "system", "content": "You are a helpful academic assistant."},
-            {"role": "user", "content": f"Summarize the following text:\n{text}"}
-        ]
-        summary = get_openai_response(messages)
+        prompt = f"You are a helpful academic assistant. Summarize the following text:\n{text}"
+        summary = get_gemini_response(prompt)
         st.success(summary)
