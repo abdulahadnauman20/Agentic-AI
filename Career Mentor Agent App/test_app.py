@@ -123,7 +123,7 @@ def main():
     if test_agents_without_api():
         tests_passed += 1
     
-    print(f"\n📊 Test Results: {tests_passed}/{total_tests} tests passed")
+    print(f"\nTest Results: {tests_passed}/{total_tests} tests passed")
     
     if tests_passed == total_tests:
         print(" All tests passed! The application is ready to use.")
