@@ -15,30 +15,30 @@ def test_imports():
     
     try:
         import config
-        print("✅ config imported successfully")
+        print("config imported successfully")
     except Exception as e:
-        print(f"❌ config import failed: {e}")
+        print(f"config import failed: {e}")
         return False
     
     try:
         from tools import CareerTools
-        print("✅ CareerTools imported successfully")
+        print(" CareerTools imported successfully")
     except Exception as e:
-        print(f"❌ CareerTools import failed: {e}")
+        print(f" CareerTools import failed: {e}")
         return False
     
     try:
         from gemini_client import GeminiClient
-        print("✅ GeminiClient imported successfully")
+        print("GeminiClient imported successfully")
     except Exception as e:
-        print(f"❌ GeminiClient import failed: {e}")
+        print(f" GeminiClient import failed: {e}")
         return False
     
     try:
         from agents import CareerAgent, SkillAgent, JobAgent, AgentOrchestrator
-        print("✅ All agents imported successfully")
+        print(" All agents imported successfully")
     except Exception as e:
-        print(f"❌ Agents import failed: {e}")
+        print(f"Agents import failed: {e}")
         return False
     
     return True
@@ -54,24 +54,24 @@ def test_tools():
         roadmap = CareerTools.get_career_roadmap("Software Development", "beginner")
         assert roadmap['career_field'] == "Software Development"
         assert roadmap['experience_level'] == "beginner"
-        print("✅ Career roadmap generation works")
+        print(" Career roadmap generation works")
         
         # Test skill assessment
         assessment = CareerTools.get_skill_assessment(["programming"], ["Python"])
         assert 'recommended_careers' in assessment
         assert 'skill_gaps' in assessment
-        print("✅ Skill assessment works")
+        print(" Skill assessment works")
         
         # Test job insights
         insights = CareerTools.get_job_insights("Data Science")
         assert 'entry_level_roles' in insights
         assert 'salary_ranges' in insights
-        print("✅ Job insights work")
+        print(" Job insights work")
         
         return True
         
     except Exception as e:
-        print(f"❌ CareerTools test failed: {e}")
+        print(f" CareerTools test failed: {e}")
         return False
 
 def test_agents_without_api():
@@ -85,27 +85,27 @@ def test_agents_without_api():
         career_agent = CareerAgent()
         skill_agent = SkillAgent()
         job_agent = JobAgent()
-        print("✅ All agents initialized successfully")
+        print(" All agents initialized successfully")
         
         # Test that agents handle missing API key gracefully
         try:
             career_agent.recommend_careers(["programming"], ["Python"])
-            print("⚠️  Career agent worked without API key (unexpected)")
+            print(" Career agent worked without API key (unexpected)")
         except Exception as e:
             if "GEMINI_API_KEY" in str(e):
-                print("✅ Career agent properly handles missing API key")
+                print(" Career agent properly handles missing API key")
             else:
-                print(f"❌ Career agent error: {e}")
+                print(f" Career agent error: {e}")
         
         return True
         
     except Exception as e:
-        print(f"❌ Agent test failed: {e}")
+        print(f" Agent test failed: {e}")
         return False
 
 def main():
     """Run all tests."""
-    print("🧪 Career Mentor Agent - Component Tests")
+    print(" Career Mentor Agent - Component Tests")
     print("=" * 50)
     
     tests_passed = 0
@@ -126,13 +126,13 @@ def main():
     print(f"\n📊 Test Results: {tests_passed}/{total_tests} tests passed")
     
     if tests_passed == total_tests:
-        print("🎉 All tests passed! The application is ready to use.")
+        print(" All tests passed! The application is ready to use.")
         print("\nTo run the full application:")
         print("1. Get a Gemini API key from https://makersuite.google.com/app/apikey")
         print("2. Create a .env file with: GEMINI_API_KEY=your_key_here")
         print("3. Run: streamlit run app.py")
     else:
-        print("⚠️  Some tests failed. Please check the errors above.")
+        print("Some tests failed. Please check the errors above.")
     
     return tests_passed == total_tests
 
