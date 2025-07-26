@@ -7,7 +7,7 @@ import sys
 import os
 
 # Add current directory to path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 
 def test_imports():
     """Test that all modules can be imported successfully."""
