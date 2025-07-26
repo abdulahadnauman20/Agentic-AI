@@ -12,7 +12,7 @@ import config
 # Page configuration
 st.set_page_config(
     page_title="Career Mentor Agent",
-    page_icon="💼",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -106,10 +106,10 @@ def main():
     
     # Sidebar for navigation
     with st.sidebar:
-        st.markdown("## 🧭 Navigation")
+        st.markdown("##  Navigation")
         page = st.selectbox(
             "Choose a section:",
-            ["🏠 Dashboard", "🎯 Career Explorer", "📚 Skill Roadmap", "💼 Job Insights", "💬 Chat with Agents"]
+            [" Dashboard", "Career Explorer", "Skill Roadmap", "Job Insights", " Chat with Agents"]
         )
         
         st.markdown("---")
@@ -121,27 +121,27 @@ def main():
         """)
         
         st.markdown("---")
-        st.markdown("## ⚙️ Settings")
+        st.markdown("##  Settings")
         if st.button("Reset Session"):
             st.session_state.user_profile = {}
             st.session_state.conversation_history = []
             st.rerun()
     
     # Page routing
-    if page == "🏠 Dashboard":
+    if page == " Dashboard":
         show_dashboard()
-    elif page == "🎯 Career Explorer":
+    elif page == " Career Explorer":
         show_career_explorer()
-    elif page == "📚 Skill Roadmap":
+    elif page == "Skill Roadmap":
         show_skill_roadmap()
-    elif page == "💼 Job Insights":
+    elif page == " Job Insights":
         show_job_insights()
-    elif page == "💬 Chat with Agents":
+    elif page == " Chat with Agents":
         show_chat_interface()
 
 def show_dashboard():
     """Main dashboard with overview and quick actions."""
-    st.markdown("## 🏠 Welcome to Your Career Journey")
+    st.markdown("##  Welcome to Your Career Journey")
     
     # Ensure user_profile exists with safe defaults
     user_profile = st.session_state.get('user_profile', {})
@@ -155,7 +155,7 @@ def show_dashboard():
         st.session_state.user_profile = user_profile
     
     # User profile section
-    with st.expander("👤 Your Profile", expanded=True):
+    with st.expander(" Your Profile", expanded=True):
         col1, col2 = st.columns(2)
         
         with col1:
@@ -184,7 +184,7 @@ def show_dashboard():
                 placeholder="e.g., become a data scientist, start a business"
             )
         
-        if st.button("💾 Save Profile"):
+        if st.button("Save Profile"):
             user_profile = {
                 'interests': [i.strip() for i in interests.split(',') if i.strip()],
                 'skills': [s.strip() for s in skills.split(',') if s.strip()],
@@ -195,11 +195,11 @@ def show_dashboard():
             st.success("Profile saved successfully!")
     
     # Quick actions
-    st.markdown("## ⚡ Quick Actions")
+    st.markdown("## Quick Actions")
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        if st.button("🎯 Get Career Recommendations"):
+        if st.button(" Get Career Recommendations"):
             if st.session_state.user_profile:
                 with st.spinner("Analyzing your profile..."):
                     career_agent = CareerAgent()
@@ -217,7 +217,7 @@ def show_dashboard():
                 st.warning("Please save your profile first!")
     
     with col2:
-        if st.button("📚 Generate Skill Roadmap"):
+        if st.button("Generate Skill Roadmap"):
             career_field = st.selectbox("Select Career Field", config.CAREER_FIELDS)
             if st.button("Generate"):
                 with st.spinner("Creating your roadmap..."):
@@ -233,7 +233,7 @@ def show_dashboard():
                 st.rerun()
     
     with col3:
-        if st.button("💼 Get Job Insights"):
+        if st.button("Get Job Insights"):
             career_field = st.selectbox("Select Field for Insights", config.CAREER_FIELDS)
             if st.button("Get Insights"):
                 with st.spinner("Gathering job insights..."):
@@ -247,7 +247,7 @@ def show_dashboard():
     
     # Recent activity
     if st.session_state.conversation_history:
-        st.markdown("## 📋 Recent Activity")
+        st.markdown("##  Recent Activity")
         for i, activity in enumerate(reversed(st.session_state.conversation_history[-5:])):
             with st.expander(f"Activity {len(st.session_state.conversation_history) - i}"):
                 if activity['type'] == 'career_recommendations':
@@ -264,7 +264,7 @@ def show_dashboard():
 
 def show_career_explorer():
     """Career exploration interface."""
-    st.markdown("## 🎯 Career Explorer")
+    st.markdown("##  Career Explorer")
     
     # Career field selection
     selected_career = st.selectbox(
@@ -272,7 +272,7 @@ def show_career_explorer():
         config.CAREER_FIELDS
     )
     
-    if st.button("🔍 Explore Career"):
+    if st.button(" Explore Career"):
         with st.spinner("Analyzing career path..."):
             # Get career analysis
             career_agent = CareerAgent()
@@ -285,7 +285,7 @@ def show_career_explorer():
             col1, col2 = st.columns(2)
             
             with col1:
-                st.markdown("### 📊 Career Analysis")
+                st.markdown("###  Career Analysis")
                 st.markdown(f"""
                 <div class="agent-card">
                     <h4>{selected_career}</h4>
@@ -294,7 +294,7 @@ def show_career_explorer():
                 """, unsafe_allow_html=True)
             
             with col2:
-                st.markdown("### 🎯 Your Profile Match")
+                st.markdown("### Your Profile Match")
                 if st.session_state.user_profile:
                     interests = st.session_state.user_profile.get('interests', [])
                     skills = st.session_state.user_profile.get('skills', [])
@@ -313,7 +313,7 @@ def show_career_explorer():
                     st.plotly_chart(fig, use_container_width=True)
     
     # Career recommendations
-    st.markdown("## 🚀 Recommended Career Paths")
+    st.markdown("## Recommended Career Paths")
     
     if st.session_state.user_profile:
         with st.spinner("Generating recommendations..."):
@@ -330,7 +330,7 @@ def show_career_explorer():
 
 def show_skill_roadmap():
     """Skill roadmap interface."""
-    st.markdown("## 📚 Skill Development Roadmap")
+    st.markdown("## Skill Development Roadmap")
     
     # Career field selection
     career_field = st.selectbox(
@@ -343,13 +343,13 @@ def show_skill_roadmap():
         ["beginner", "intermediate", "advanced"]
     )
     
-    if st.button("🗺️ Generate Roadmap"):
+    if st.button(" Generate Roadmap"):
         with st.spinner("Creating your personalized roadmap..."):
             skill_agent = SkillAgent()
             roadmap_data = skill_agent.generate_skill_roadmap(career_field, experience_level)
             
             # Display roadmap
-            st.markdown(f"### 🎯 {career_field} - {experience_level.title()} Level")
+            st.markdown(f"###  {career_field} - {experience_level.title()} Level")
             
             roadmap = roadmap_data['roadmap']['roadmap']
             
@@ -363,12 +363,12 @@ def show_skill_roadmap():
                     
                     col1, col2 = st.columns(2)
                     with col1:
-                        st.markdown("**🎯 Key Skills**")
+                        st.markdown("**Key Skills**")
                         for skill in phase['skills']:
                             st.markdown(f"- {skill}")
                     
                     with col2:
-                        st.markdown("**📁 Projects**")
+                        st.markdown("* Projects**")
                         for project in phase['projects']:
                             st.markdown(f"- {project}")
                     
@@ -383,16 +383,16 @@ def show_skill_roadmap():
                     
                     col1, col2 = st.columns(2)
                     with col1:
-                        st.markdown("**🎯 Key Skills**")
+                        st.markdown("** Key Skills**")
                         for skill in phase['skills']:
                             st.markdown(f"- {skill}")
                     
                     with col2:
-                        st.markdown("**📁 Projects**")
+                        st.markdown("**Projects**")
                         for project in phase['projects']:
                             st.markdown(f"- {project}")
                     
-                    st.markdown("**📚 Resources**")
+                    st.markdown("**Resources**")
                     for resource in phase['resources']:
                         st.markdown(f"- {resource}")
             
@@ -403,26 +403,26 @@ def show_skill_roadmap():
                     
                     col1, col2 = st.columns(2)
                     with col1:
-                        st.markdown("**🎯 Key Skills**")
+                        st.markdown("**Key Skills**")
                         for skill in phase['skills']:
                             st.markdown(f"- {skill}")
                     
                     with col2:
-                        st.markdown("**📁 Projects**")
+                        st.markdown("**Projects**")
                         for project in phase['projects']:
                             st.markdown(f"- {project}")
                     
-                    st.markdown("**📚 Resources**")
+                    st.markdown("**Resources**")
                     for resource in phase['resources']:
                         st.markdown(f"- {resource}")
             
             # Enhanced insights
-            st.markdown("### 💡 AI-Enhanced Insights")
+            st.markdown("###  AI-Enhanced Insights")
             st.markdown(roadmap_data['enhanced_insights'])
 
 def show_job_insights():
     """Job insights interface."""
-    st.markdown("## 💼 Job Market Insights")
+    st.markdown("## Job Market Insights")
     
     # Career field selection
     career_field = st.selectbox(
@@ -430,7 +430,7 @@ def show_job_insights():
         config.CAREER_FIELDS
     )
     
-    if st.button("📊 Get Job Insights"):
+    if st.button("Get Job Insights"):
         with st.spinner("Gathering job market data..."):
             job_agent = JobAgent()
             insights = job_agent.get_job_insights(career_field)
@@ -439,7 +439,7 @@ def show_job_insights():
             col1, col2 = st.columns(2)
             
             with col1:
-                st.markdown("### 🎯 Job Roles")
+                st.markdown("###  Job Roles")
                 
                 st.markdown("**Entry Level Roles**")
                 for role in insights['job_insights']['entry_level_roles']:
@@ -454,7 +454,7 @@ def show_job_insights():
                     st.markdown(f"- {role}")
             
             with col2:
-                st.markdown("### 💰 Salary Ranges")
+                st.markdown("### Salary Ranges")
                 salary_data = insights['job_insights']['salary_ranges']
                 
                 # Create salary visualization
@@ -470,16 +470,16 @@ def show_job_insights():
                            color_discrete_sequence=['#28a745', '#ffc107', '#dc3545'])
                 st.plotly_chart(fig, use_container_width=True)
             
-            st.markdown("### 🏢 Top Companies")
+            st.markdown("###  Top Companies")
             for company in insights['job_insights']['companies']:
                 st.markdown(f"- {company}")
             
-            st.markdown("### 📈 Market Analysis")
+            st.markdown("### Market Analysis")
             st.markdown(insights['market_analysis'])
 
 def show_chat_interface():
     """Chat interface with agents."""
-    st.markdown("## 💬 Chat with Career Agents")
+    st.markdown("##  Chat with Career Agents")
     
     # Chat interface
     if "messages" not in st.session_state:
