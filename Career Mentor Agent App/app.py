@@ -99,7 +99,7 @@ def main():
     # Header
     st.markdown("""
     <div class="main-header">
-        <h1>💼 Career Mentor Agent</h1>
+        <h1> Career Mentor Agent</h1>
         <p>Your AI-powered career exploration companion powered by Gemini</p>
     </div>
     """, unsafe_allow_html=True)
@@ -113,7 +113,7 @@ def main():
         )
         
         st.markdown("---")
-        st.markdown("## 🤖 Active Agents")
+        st.markdown("## Active Agents")
         st.markdown("""
         - **CareerAgent**: Career exploration & recommendations
         - **SkillAgent**: Learning roadmaps & skill development
